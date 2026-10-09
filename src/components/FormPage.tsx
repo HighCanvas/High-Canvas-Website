@@ -3,6 +3,8 @@ import { SiteHeader } from './SiteHeader'
 import { SiteFooter } from './SiteFooter'
 import { Reveal } from './Reveal'
 
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mnpjdlnj'
+
 export interface FormField {
   name: string
   label: string
@@ -21,11 +23,35 @@ interface FormPageProps {
 
 export function FormPage({ title, intro, fields, submitLabel, successMessage }: FormPageProps) {
   const [submitted, setSubmitted] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState(false)
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    setSubmitted(true)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    setSending(true)
+    setError(false)
+
+    const form = e.currentTarget
+    const data = new FormData(form)
+    data.append('_subject', `High Canvas — ${title}`)
+
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        body: data,
+        headers: { Accept: 'application/json' },
+      })
+      if (res.ok) {
+        setSubmitted(true)
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      } else {
+        setError(true)
+      }
+    } catch {
+      setError(true)
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -68,8 +94,13 @@ export function FormPage({ title, intro, fields, submitLabel, successMessage }: 
                   )}
                 </div>
               ))}
-              <button type="submit" className="hc-btn mt-2 w-full">
-                {submitLabel}
+              {error && (
+                <p className="hc-body text-sm" style={{ color: 'var(--hc-rust)' }}>
+                  Something went wrong — please try again, or write to us directly at sail@highcanvas.club.
+                </p>
+              )}
+              <button type="submit" className="hc-btn mt-2 w-full" disabled={sending}>
+                {sending ? 'Sending…' : submitLabel}
               </button>
             </form>
           </Reveal>
