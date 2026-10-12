@@ -20,12 +20,6 @@ const pillars = [
     text: 'Under sail, at walking pace, with a warm galley waiting below.',
   },
   {
-    to: '/ships',
-    icon: '/images/icon-ships.png',
-    title: 'Ships We Sail',
-    text: 'Traditional tall ships, kept working and open to all.',
-  },
-  {
     to: '/social-mission',
     icon: '/images/icon-mission.png',
     title: 'Social Mission',
@@ -58,8 +52,6 @@ export function Home() {
             className="text-center text-[0.6rem] font-bold uppercase leading-relaxed md:text-[0.7rem]"
             style={{ letterSpacing: '0.22em', color: 'var(--hc-navy)' }}
           >
-            Connecting People
-            <br />
             Old Ships
             <br />
             New Horizons
@@ -112,9 +104,23 @@ export function Home() {
         </div>
       </section>
 
+      {/* Mission statement */}
+      <section className="mx-auto w-full max-w-3xl px-5 pt-16 text-center md:px-8 md:pt-24">
+        <Reveal>
+          <p
+            className="text-xl leading-relaxed md:text-2xl"
+            style={{ fontFamily: "'Libre Baskerville', serif", color: 'var(--hc-navy)' }}
+          >
+            High Canvas Sailing Community keeps heritage sailing skills alive — and puts our decks
+            to work for conservation and campaigning.
+          </p>
+          <div className="hc-divider mx-auto my-8 w-24" />
+        </Reveal>
+      </section>
+
       {/* Three pillars */}
-      <main className="mx-auto w-full max-w-6xl flex-1 px-5 pb-4 pt-16 md:px-8 md:pt-24">
-        <div className="grid grid-cols-1 gap-14 sm:grid-cols-2 lg:grid-cols-4 md:gap-10">
+      <main className="mx-auto w-full max-w-6xl flex-1 px-5 pb-4 pt-8 md:px-8 md:pt-12">
+        <div className="grid grid-cols-1 gap-14 sm:grid-cols-3 md:gap-10">
           {pillars.map((p) => (
             <Reveal key={p.to}>
               <Link to={p.to} className="group flex flex-col items-center text-center">
@@ -122,7 +128,6 @@ export function Home() {
                   src={p.icon}
                   alt=""
                   className="h-28 w-auto object-contain transition-transform duration-500 group-hover:scale-105 md:h-36"
-                 
                 />
                 <h2
                   className="mt-7 text-lg font-bold uppercase transition-colors duration-300 group-hover:text-[var(--hc-rust)] md:text-xl"
