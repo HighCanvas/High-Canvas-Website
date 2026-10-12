@@ -111,8 +111,8 @@ export function Home() {
             className="text-xl leading-relaxed md:text-2xl"
             style={{ fontFamily: "'Libre Baskerville', serif", color: 'var(--hc-navy)' }}
           >
-            High Canvas Sailing Community keeps heritage sailing skills alive and puts our decks
-            to work for conservation, campaigning and cargo missions.
+            High Canvas Sailing Community keeps heritage sailing skills alive — chartering our
+            decks for conservation, campaigning and cargo missions.
           </p>
           <div className="hc-divider mx-auto my-8 w-24" />
         </Reveal>
